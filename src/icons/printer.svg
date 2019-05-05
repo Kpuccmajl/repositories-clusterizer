@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   xmlns:osb="http://www.openswatchbook.org/uri/2009/osb"
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   version="1.1"
+   id="svg2"
+   viewBox="0 0 9.9999995 9.9999995"
+   height="10"
+   width="10"
+   inkscape:version="0.92.2 (5c3e80d, 2017-08-06)"
+   sodipodi:docname="printer.svg">
+  <sodipodi:namedview
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1"
+     objecttolerance="10"
+     gridtolerance="10"
+     guidetolerance="10"
+     inkscape:pageopacity="0"
+     inkscape:pageshadow="2"
+     inkscape:window-width="1920"
+     inkscape:window-height="1178"
+     id="namedview4168"
+     showgrid="false"
+     inkscape:zoom="64"
+     inkscape:cx="3.6940661"
+     inkscape:cy="6.8192253"
+     inkscape:window-x="-8"
+     inkscape:window-y="-8"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="svg2"
+     units="px" />
+  <defs
+     id="defs4">
+    <linearGradient
+       osb:paint="solid"
+       id="linearGradient6132">
+      <stop
+         id="stop6134"
+         offset="0"
+         style="stop-color:#000000;stop-opacity:1;" />
+    </linearGradient>
+    <linearGradient
+       osb:paint="solid"
+       id="linearGradient4692">
+      <stop
+         id="stop4694"
+         offset="0"
+         style="stop-color:#000000;stop-opacity:1;" />
+    </linearGradient>
+    <linearGradient
+       gradientTransform="translate(-763.67532,52.527932)"
+       gradientUnits="userSpaceOnUse"
+       y2="493.07648"
+       x2="384.78571"
+       y1="493.07648"
+       x1="159.49998"
+       id="linearGradient6136"
+       xlink:href="#linearGradient4692" />
+  </defs>
+  <metadata
+     id="metadata7">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title />
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <rect
+     style="opacity:1;fill:#2f2f2f;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:0.18001752;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:0.4321608;paint-order:normal"
+     id="rect4659"
+     width="9.7523422"
+     height="6.7052188"
+     x="0.12881923"
+     y="1.1815155"
+     ry="0.4581205" />
+  <rect
+     style="opacity:1;fill:#6a6a6a;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:0.21745385;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:0.4321608;paint-order:normal"
+     id="rect4663"
+     width="8.3048668"
+     height="3.9468136"
+     x="0.8303926"
+     y="3.7563708"
+     ry="0.55305684" />
+  <rect
+     style="opacity:1;fill:#c8c8c8;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:0.27611679;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:0.4321608;paint-order:normal"
+     id="rect4665"
+     width="2.5562959"
+     height="0.87843341"
+     x="6.9554586"
+     y="1.661737"
+     ry="0.43921673" />
+  <rect
+     style="opacity:1;fill:#ffffff;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:0.07046938;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:normal"
+     id="rect4673"
+     width="5.6708102"
+     height="3.7025657"
+     x="2.1781864"
+     y="5.2702985"
+     ry="0"
+     rx="0" />
+  <rect
+     style="opacity:1;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:0.0774968;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:normal"
+     id="rect4675"
+     width="6.4891419"
+     height="0.41742051"
+     x="1.7770228"
+     y="4.8763695" />
+</svg>

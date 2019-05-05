@@ -1,0 +1,6 @@
+<RCC>
+    <qresource prefix="/icons">
+        <file>icons/loading.gif</file>
+        <file>icons/secondary.svg</file>
+    </qresource>
+</RCC>
