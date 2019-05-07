@@ -19,7 +19,8 @@ SOURCES += main.cpp\
     clusterizer.cpp \
     analyzer.cpp \
     qcustomplot.cpp \
-    repository.cpp
+    repository.cpp \
+    kmeans.cpp
 
 HEADERS  += mainwindow.h \
     config.h \

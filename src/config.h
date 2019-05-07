@@ -16,11 +16,11 @@ public:
     bool isOk() const { return m_isOk; }
     bool readConfig();
 
+    Repositories m_repositories;
 private:
     Config();
     Q_DISABLE_COPY(Config)
 
-    Repositories m_repositories;
     bool         m_isOk = false;
 };
 

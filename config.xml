@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <config>
-    <repository link="/home/no1ks/dev/repositories-clusterizer_2604"/>
-    <repository link="/home/no1ks/dev/repositories-clusterizer"/>
+    <!--<repository link="/home/no1ks/dev/repositories-clusterizer_2604"/>
+    <repository link="/home/no1ks/dev/repositories-clusterizer"/>-->
 
-   <!-- <repository link="/home/user/dev/repositories-clusterizer"/>
-    <repository link="/home/user/dev/11442m/modules/documenting-control"/>
+<!--    <repository link="/home/user/dev/repositories-clusterizer"/>-->
+<!--    <repository link="/home/user/dev/11442m/modules/documenting-control"/>-->
     <repository link="/home/user/dev/11442m/modules/diagnostics"/>
     <repository link="/home/user/dev/11442m/modules/data-fusion"/>
     <repository link="/home/user/dev/11442m/modules/anti-air-defence"/>
@@ -12,5 +12,9 @@
     <repository link="/home/user/dev/11442m/modules/kpas"/>
     <repository link="/home/user/dev/11442m/modules/geographic"/>
     <repository link="/home/user/dev/11442m/modules/training"/>
-    <repository link="/home/user/dev/11442m/modules/sys-math"/>-->
+    <repository link="/home/user/dev/11442m/modules/sys-math"/>
+    <repository link="/home/user/dev/11442m/modules/collision-prevention"/>
+    <repository link="/home/user/dev/11442m/modules/combat-practice"/>
+    <repository link="/home/user/dev/11442m/modules/fighter-control"/>
+    <repository link="/home/user/dev/11442m/modules/joint-navigation"/>
 </config>

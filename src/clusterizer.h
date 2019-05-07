@@ -16,15 +16,13 @@ class Clusterizer : public QObject
 {
     Q_OBJECT
 public:
-    static QList<Repositories> clusterize(Repositories & repositories, QString &text);
+    static QList<Repositories> clusterizeMaxSimilarity(Repositories & repositories, QString &text);
     static QString lingua(QList<Repositories> & clusters, int reposCount);
 
 private:
     explicit Clusterizer(QObject *parent = 0);
     Q_DISABLE_COPY(Clusterizer)
 
-signals:
-public slots:
 };
 
 #endif // CLUSTERIZER_H

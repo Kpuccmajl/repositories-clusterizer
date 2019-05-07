@@ -37,7 +37,7 @@ bool Analyzer::sloc(Repository &repository)
     proc.start("/bin/bash", QStringList() << SLOC_SCRIPT << repository.link());
     if (!proc.waitForStarted())
         return false;
-    if (!proc.waitForFinished())
+    if (!proc.waitForFinished(1000 * 300))
         return false;
 
     QByteArray sloc = proc.readAll().split('=').last().trimmed().replace(',', "");
@@ -61,6 +61,25 @@ bool Analyzer::sloc(Repository &repository)
 
 bool Analyzer::cppcheck(Repository &repository)
 {
+    QProcess proc;
+    proc.start("/bin/bash", QStringList() << CPPCHECK_SCRIPT << repository.link());
+    if (!proc.waitForStarted(1000 * 30))
+        return false;
+    if (!proc.waitForFinished(1000 * 300))
+        return false;
+
+    auto errcount = proc.readAll().split('\n').count();
+
+    int lowgrade = 0;
+    int highgrade = 200;
+    if (errcount <= lowgrade) {
+        repository.setQuality(0.0);
+    } else if (errcount > highgrade) {
+        repository.setQuality(1.0);
+    } else {
+        repository.setQuality(normalFloat(static_cast<float>(errcount) / highgrade));
+    }
+
     return true;
 }
 
@@ -70,7 +89,7 @@ bool Analyzer::checkSupport(Repository &repository)
     proc.start("/bin/bash", QStringList() << CHECKSUPPORT_SCRIPT << repository.link());
     if (!proc.waitForStarted())
         return false;
-    if (!proc.waitForFinished())
+    if (!proc.waitForFinished(1000 * 300))
         return false;
 
     auto res = proc.readAll().trimmed();
@@ -81,7 +100,7 @@ bool Analyzer::checkSupport(Repository &repository)
     auto current = QDateTime::currentDateTime().toTime_t();
 
     float lowgrade = 86400 * 1;
-    float highgrade = 86400 * 30;
+    float highgrade = 86400 * 90;
     if (current - lastUpdate < lowgrade) {
         repository.setSupport(0.0);
     } else if (current - lastUpdate > highgrade) {
@@ -99,10 +118,11 @@ bool Analyzer::language(Repository &repository)
     proc.start("/bin/bash", QStringList() << SLOC_LANG_SCRIPT << repository.link());
     if (!proc.waitForStarted())
         return false;
-    if (!proc.waitForFinished())
+    if (!proc.waitForFinished(1000 * 300))
         return false;
 
     auto res = proc.readAll().trimmed().split('\n');
+
     for (auto & r: res) {
         if (r.split(':').first() == "ansic") {
            repository.setLanguage((int)r.split(' ').last().replace('%', "").replace('(', "").replace(')', "").toDouble() / 100.0);

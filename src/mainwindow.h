@@ -5,6 +5,7 @@
 #include "analyzer.h"
 #include "clusterizer.h"
 #include "qcustomplot.h"
+#include "kmeans.cpp"
 
 namespace Ui {
 class MainWindow;
@@ -19,7 +20,8 @@ public:
     ~MainWindow();
 
 private:
-    void drawPlot();
+    void drawClustered(std::vector<Cluster> & clusters);
+    void showText(std::vector<Cluster> & clusters, QString & txt);
 
     QList<Repositories> clusters;
     QList<QColor>       colors;
@@ -27,7 +29,11 @@ private:
 private slots:
     void on_btnAnalyze_clicked();
 
+    void on_btnClusterize_clicked();
+
 private:
+    void clearLayout(QLayout *layout);
+
     Ui::MainWindow * ui;
     QCustomPlot      m_plot;
 };

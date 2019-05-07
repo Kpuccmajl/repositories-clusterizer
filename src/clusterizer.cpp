@@ -1,11 +1,12 @@
 #include "clusterizer.h"
 #include <QDebug>
 #include <math.h>
+#include "analyzer.h"
 
 Clusterizer::Clusterizer(QObject *parent) : QObject(parent)
 {}
 
-QList<Repositories> Clusterizer::clusterize(Repositories &repositories, QString & text)
+QList<Repositories> Clusterizer::clusterizeMaxSimilarity(Repositories &repositories, QString & text)
 {
     QList<Repositories> clusters;
     text = "";
@@ -31,10 +32,9 @@ QList<Repositories> Clusterizer::clusterize(Repositories &repositories, QString 
         QList<Floats> indexMatrix, similarityMatrix;
         for (int i = 0; i < repositories.count(); i++) {
             indexMatrix.append(Floats()
-                               << repositories.at(i).language()
-                               << repositories.at(i).support()
-                               << repositories.at(i).size()
-                               << repositories.at(i).quality());
+                               << repositories.at(i).x()
+                               << repositories.at(i).y()
+                               );
         }
 
         // show indexes
@@ -51,7 +51,7 @@ QList<Repositories> Clusterizer::clusterize(Repositories &repositories, QString 
 
         //build similarity matrix
         int column = 1;
-        int count = 0;
+        //        int count = 0;
         Floats similarities;
         for (int i = 0; i < indexMatrix.count(); i++) {
             similarities.clear();
@@ -59,16 +59,20 @@ QList<Repositories> Clusterizer::clusterize(Repositories &repositories, QString 
                 similarities.append(0);
             }
             for (int j = column; j < indexMatrix.count(); j++) {
-                for (int o = 0; o < indexMatrix.at(0).count(); o++) {
-                    float fir =  indexMatrix.at(i).at(o);
-                    float sec = indexMatrix.at(j).at(o);
-                    float similarWithDifference = 0.1;
-                    if (fabs(fir - sec) < similarWithDifference) {
-                        ++count;
-                    }
-                }
-                similarities.append(count);
-                count = 0;
+                //                for (int o = 0; o < indexMatrix.at(0).count(); o++) {
+                //                    float fir =  indexMatrix.at(i).at(o);
+                //                    float sec = indexMatrix.at(j).at(o);
+                //                    float similarWithDifference = 0.1;
+                //                    if (fabs(fir - sec) < similarWithDifference) {
+                //                        ++count;
+                //                    }
+                //                }
+
+                // расстоянием
+                float distance = std::sqrt(fabs(std::pow(indexMatrix.at(j).at(0) - indexMatrix.at(i).at(0), 2)
+                                                + std::pow(indexMatrix.at(j).at(1) - indexMatrix.at(i).at(1), 2)));
+                similarities.append(Analyzer::normalFloat(distance));
+                //                count = 0;
             }
             ++column;
             similarityMatrix.append(similarities);
@@ -94,27 +98,45 @@ QList<Repositories> Clusterizer::clusterize(Repositories &repositories, QString 
             text += "\n";
         }
 
-        // max index in similarity matrix
-        int maxSimilarityIndex = -1;
+        // find index
+        float minSimilarityIndex = 100000.0;
+        int ind = 0;
         for (int i = 0; i < similarityMatrix.count(); i++) {
             for (int j = 0; j < similarityMatrix.count(); j++) {
-                if (maxSimilarityIndex < similarityMatrix.at(i).at(j)) {
-                    maxSimilarityIndex = similarityMatrix.at(i).at(j);
+                if (minSimilarityIndex > similarityMatrix.at(i).at(j)
+                        && similarityMatrix.at(i).at(j) != 0) {
+                    qDebug() << minSimilarityIndex << similarityMatrix.at(i).at(j) << minSimilarityIndex - similarityMatrix.at(i).at(j);
+                    minSimilarityIndex = similarityMatrix.at(i).at(j);
+                    ind = i;
                 }
             }
         }
 
         // find repositories with this index
         Floats clusterIndexes;
-        for (int i = 0; i < similarityMatrix.count(); i++) {
-            for (int j = 0; j < similarityMatrix.at(0).count(); j++) {
-                if (similarityMatrix.at(i).at(j) == maxSimilarityIndex) {
-                    if (!clusterIndexes.contains(i)) {
-                        clusterIndexes.append(i);
-                    }
-                    if (!clusterIndexes.contains(j)) {
-                        clusterIndexes.append(j);
-                    }
+//        for (int i = 0; i < similarityMatrix.count(); i++) {
+//            for (int j = 0; j < similarityMatrix.at(0).count(); j++) {
+//                if (fabs(similarityMatrix.at(i).at(j) - minSimilarityIndex) < 0.05
+//                        && similarityMatrix.at(i).at(j) != 0.0) {
+//                    if (!clusterIndexes.contains(i)) {
+//                        clusterIndexes.append(i);
+//                    }
+//                    if (!clusterIndexes.contains(j)) {
+//                        clusterIndexes.append(j);
+//                    }
+//                }
+//            }
+//        }
+
+        qDebug() << minSimilarityIndex << ind;
+        for (int j = 0; j < similarityMatrix.count(); ++j) {
+            if (fabs(similarityMatrix.at(ind).at(j) - minSimilarityIndex) < minSimilarityIndex * 3
+                    && similarityMatrix.at(ind).at(j) != 0.0) {
+                if (!clusterIndexes.contains(ind)) {
+                    clusterIndexes.append(ind);
+                }
+                if (!clusterIndexes.contains(j)) {
+                    clusterIndexes.append(j);
                 }
             }
         }

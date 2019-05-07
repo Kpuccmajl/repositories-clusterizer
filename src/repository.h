@@ -4,12 +4,10 @@
 #include <QString>
 #include <QStringList>
 
-enum class ELanguage : u_int8_t { ANSIC, C }; const float languageWeight = 1.0;
-enum class EQuality : u_int8_t { BAD, GOOD }; const float qualityWeight = 1.0;
-enum class ESupport : u_int8_t { HIGH, LOW }; const float supportWeight = 1.0;
-enum class ESize : u_int8_t { SMALL, BIG }; const float sizeWeight = 1.0;
-// popularity
-// author
+enum class ELanguage : u_int8_t { ANSIC, CPP }; const float languageWeight  = 1.0;
+enum class EQuality : u_int8_t { BAD, GOOD };   const float qualityWeight   = 1.0;
+enum class ESupport : u_int8_t { HIGH, LOW };   const float supportWeight   = 1.0;
+enum class ESize : u_int8_t { SMALL, BIG };     const float sizeWeight      = 1.0;
 
 struct Repository
 {
@@ -24,6 +22,10 @@ public:
         , m_support(su) {}
 
     QString name() const { return m_link.split('/').last(); }
+
+    float x() const { return size() + language(); }
+    float y() const { return quality() + support(); }
+
     float size() const { return m_size * sizeWeight; }
     float quality() const { return m_quality * qualityWeight; }
     float language() const { return m_language * languageWeight; }
@@ -39,8 +41,9 @@ public:
     void setSupport(const float &support);
 
 private:
-    QString m_link = "";
-    int     m_sloc = 0;
+    QString m_link     = "";
+    int     m_sloc     = 0;
+
     float   m_size     = 0.0;
     float   m_quality  = 0.0;
     float   m_language = 0.0;

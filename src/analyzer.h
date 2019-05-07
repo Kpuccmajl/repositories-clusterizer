@@ -14,11 +14,11 @@ public:
     static bool checkSupport(Repository & repository);
     static bool language(Repository & repository);
 
+    static float normalFloat(float f);
+
 private:
     explicit Analyzer(QObject *parent = 0);
     Q_DISABLE_COPY(Analyzer)
-
-    static float normalFloat(float f);
 };
 
 #endif // ANALYZER_H
