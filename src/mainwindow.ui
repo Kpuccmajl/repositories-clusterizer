@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1520</width>
-    <height>973</height>
+    <width>1316</width>
+    <height>685</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -18,9 +18,9 @@
     <normaloff>:/icons/icons/secondary.svg</normaloff>:/icons/icons/secondary.svg</iconset>
   </property>
   <widget class="QWidget" name="centralWidget">
-   <layout class="QHBoxLayout" name="horizontalLayout_2" stretch="2,0,2">
+   <layout class="QHBoxLayout" name="horizontalLayout_2" stretch="2,2">
     <item>
-     <layout class="QVBoxLayout" name="lay" stretch="1,1,0,0">
+     <layout class="QVBoxLayout" name="lay" stretch="1,1,0">
       <item>
        <widget class="QTextEdit" name="text">
         <property name="readOnly">
@@ -29,10 +29,26 @@
        </widget>
       </item>
       <item>
-       <widget class="QTableWidget" name="table"/>
+       <widget class="QTableWidget" name="table">
+        <property name="frameShape">
+         <enum>QFrame::StyledPanel</enum>
+        </property>
+        <property name="editTriggers">
+         <set>QAbstractItemView::NoEditTriggers</set>
+        </property>
+        <property name="alternatingRowColors">
+         <bool>false</bool>
+        </property>
+        <property name="selectionMode">
+         <enum>QAbstractItemView::SingleSelection</enum>
+        </property>
+        <property name="selectionBehavior">
+         <enum>QAbstractItemView::SelectRows</enum>
+        </property>
+       </widget>
       </item>
       <item>
-       <layout class="QHBoxLayout" name="horizontalLayout_3">
+       <layout class="QHBoxLayout" name="horizontalLayout">
         <item>
          <widget class="QProgressBar" name="progressBar">
           <property name="value">
@@ -50,22 +66,12 @@
           </property>
          </widget>
         </item>
-       </layout>
-      </item>
-      <item>
-       <layout class="QHBoxLayout" name="horizontalLayout">
         <item>
-         <spacer name="horizontalSpacer">
-          <property name="orientation">
-           <enum>Qt::Horizontal</enum>
+         <layout class="QHBoxLayout" name="horizontalLayout_4">
+          <property name="rightMargin">
+           <number>20</number>
           </property>
-          <property name="sizeHint" stdset="0">
-           <size>
-            <width>40</width>
-            <height>20</height>
-           </size>
-          </property>
-         </spacer>
+         </layout>
         </item>
         <item>
          <widget class="QLabel" name="label_2">
@@ -96,24 +102,7 @@
      </layout>
     </item>
     <item>
-     <layout class="QVBoxLayout" name="layProcess"/>
-    </item>
-    <item>
-     <layout class="QVBoxLayout" name="layPlot" stretch="0">
-      <item>
-       <widget class="QLabel" name="label">
-        <property name="autoFillBackground">
-         <bool>false</bool>
-        </property>
-        <property name="text">
-         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:12pt;&quot;&gt;Colors of clusters   1:&lt;/span&gt;&lt;span style=&quot; font-size:12pt; color:#ff0000;&quot;&gt;■&lt;/span&gt;&lt;span style=&quot; font-size:12pt;&quot;&gt; 2: &lt;/span&gt;&lt;span style=&quot; font-size:12pt; color:#005dff;&quot;&gt;■&lt;/span&gt;&lt;span style=&quot; font-size:12pt;&quot;&gt;3:&lt;/span&gt;&lt;span style=&quot; font-size:12pt; color:#00ff11;&quot;&gt;■&lt;/span&gt;&lt;span style=&quot; font-size:12pt;&quot;&gt; 4:&lt;/span&gt;&lt;span style=&quot; font-size:12pt; color:#f7ff06;&quot;&gt;■&lt;/span&gt;&lt;span style=&quot; font-size:12pt;&quot;&gt; 5:&lt;/span&gt;&lt;span style=&quot; font-size:12pt; color:#ff00d9;&quot;&gt;■&lt;/span&gt;&lt;span style=&quot; font-size:12pt;&quot;&gt; 6:■ 7:&lt;/span&gt;&lt;span style=&quot; font-size:12pt; color:#757575;&quot;&gt;■&lt;/span&gt;&lt;span style=&quot; font-size:12pt;&quot;&gt; 8:&lt;/span&gt;&lt;span style=&quot; font-size:12pt; color:#00f7ff;&quot;&gt;■&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-        </property>
-        <property name="alignment">
-         <set>Qt::AlignCenter</set>
-        </property>
-       </widget>
-      </item>
-     </layout>
+     <layout class="QVBoxLayout" name="layPlot"/>
     </item>
    </layout>
   </widget>

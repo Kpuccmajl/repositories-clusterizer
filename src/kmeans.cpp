@@ -5,6 +5,7 @@
 #include <sstream>
 #include <algorithm>
 #include <QString>
+#include <QDebug>
 
 using namespace std;
 
@@ -137,9 +138,10 @@ struct KMeans
         this->iters = iterations;
     }
 
-    void clusterize(vector<Point>& points)
+    void clusterize(vector<Point> points)
     {
         stringstream ssinfo;
+        clusters.clear();
         info.clear();
         if (points.size() < K){
             ssinfo << "Error: Number of clusters greater than number of points." << endl;
@@ -147,18 +149,6 @@ struct KMeans
 
         total_points = points.size();
         dimensions = points[0].dimensions;
-
-        ssinfo << "> points:" << endl;
-        int count = 1;
-        for (auto & p: points) {
-            ssinfo << count << "\t";
-            for (auto & v: p.values) {
-                ssinfo << v << "\t";
-            }
-            ++count;
-            ssinfo << endl;
-        }
-        ssinfo << endl;
 
         //Initializing Clusters
         vector<int> usedpPointsIds;
