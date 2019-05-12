@@ -2,5 +2,10 @@
     <qresource prefix="/icons">
         <file>icons/loading.gif</file>
         <file>icons/secondary.svg</file>
+        <file>icons/27.ico</file>
+        <file>icons/38.ico</file>
+        <file>icons/12.ico</file>
+        <file>icons/4.ico</file>
+        <file>icons/24.ico</file>
     </qresource>
 </RCC>

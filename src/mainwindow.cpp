@@ -3,6 +3,7 @@
 #include <QDebug>
 #include <QTableWidget>
 #include <QLabel>
+#include <strstream>
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -14,7 +15,7 @@ MainWindow::MainWindow(QWidget *parent) :
         exit(0);
     }
 
-    ui->layPlot->addWidget(&m_plot, 1);
+    ui->layPlot->insertWidget(0, &m_plot, 1);
     m_plot.setInteractions(QCP::iRangeDrag | QCP::iRangeZoom);
     m_plot.xAxis->setLabel("Quantity");
     m_plot.yAxis->setLabel("Quality");
@@ -128,9 +129,50 @@ void MainWindow::drawClustered()
         ppen.setWidth(2);
         m_plot.graph()->setPen(ppen);
         m_plot.graph()->setScatterStyle(QCPScatterStyle(QCPScatterStyle::ssCircle));
-        m_plot.graph()->setLineStyle(QCPGraph::LineStyle::lsLine);
+
+        if (ui->rbLines->isChecked()) {
+            m_plot.graph()->setLineStyle(QCPGraph::LineStyle::lsLine);
+        } else if (ui->rbDots->isChecked() || ui->rbCentroids->isChecked() || ui->rbCircles->isChecked()) {
+            m_plot.graph()->setLineStyle(QCPGraph::LineStyle::lsNone);
+        }
+
         m_plot.graph()->setData(xv, yv);
         m_plot.graph()->setName("cluster " + QString::number(c.clusterId) + " points");
+
+        if (ui->rbCentroids->isChecked()) {
+            for (auto & p: c.points) {
+                m_plot.addGraph();
+                m_plot.graph()->removeFromLegend();
+                xv.clear();
+                yv.clear();
+                xv.append(p.values.at(0));
+                xv.append(c.centroid.at(0));
+                yv.append(p.values.at(1));
+                yv.append(c.centroid.at(1));
+                QPen pppen = QPen(colors.at(color));
+                pppen.setStyle(Qt::PenStyle::DashLine);
+                pppen.setWidth(2);
+                m_plot.graph()->setPen(pppen);
+                m_plot.graph()->setScatterStyle(QCPScatterStyle(QCPScatterStyle::ssCircle));
+                m_plot.graph()->setData(xv, yv);
+            }
+        }
+
+        if (ui->rbCircles->isChecked()) {
+            m_plot.addGraph();
+            m_plot.graph()->setName("cluster " + QString::number(c.clusterId) + " area");
+            xv.clear();
+            yv.clear();
+            xv.append(c.centroid.at(0));
+            yv.append(c.centroid.at(1));
+            QPen pppen = QPen(colors.at(color));
+            pppen.setStyle(Qt::PenStyle::SolidLine);
+            pppen.setWidth(150);
+            m_plot.graph()->setPen(pppen);
+            m_plot.graph()->setScatterStyle(QCPScatterStyle(QCPScatterStyle::ssCircle));
+            m_plot.graph()->setData(xv, yv);
+        }
+
         ++color;
     }
 
@@ -148,9 +190,8 @@ void MainWindow::showText(QString & txt)
     int n = 1;
     ss << "\n> centroids:\n";
     for (Cluster & c : clusters) {
-        ss << n++ << "\t" << Analyzer::normalFloat(c.centroid.at(0)) << "\t" << Analyzer::normalFloat(c.centroid.at(1)) << "\n";
+        ss << n++ << " (" << Analyzer::normalFloat(c.centroid.at(0)) << ", " << Analyzer::normalFloat(c.centroid.at(1)) << ")\n";
     }
-    ss << "\n\n";
     text += QString::fromStdString(ss.str());
 
     ui->text->setText(text);
@@ -181,7 +222,75 @@ void MainWindow::setColorForClusters()
 
 void MainWindow::lingua()
 {
+    std::stringstream ss;
+    ss << "> linguistic analyze " << endl;
+    auto all = Config::instance().repositories().count();
 
+    // biggest
+    int biggest = 0;
+    int dots = 0;
+    for (auto & c : clusters) {
+        if (dots < c.points.size()) {
+            biggest = c.clusterId;
+            dots = c.points.size();
+        }
+    }
+    ss << "biggest cluster is  " << biggest << " (" << QString::number(float(dots) / float(all) * 100.0, 'f', 2).toStdString() << "% of all)" << endl;
+
+    // smalles
+    int smallest = 0;
+    dots = INT32_MAX;
+    for (auto & c : clusters) {
+        if (dots > c.points.size()) {
+            smallest = c.clusterId;
+            dots = c.points.size();
+        }
+    }
+    ss << "smallest cluster is " << smallest << " (" << QString::number(float(dots) / float(all) * 100.0, 'f', 2).toStdString() << "% of all)" << endl;
+
+    for (auto & c : clusters) {
+        double sumX = 0.0;
+        double sumY = 0.0;
+        int numberOfPoints = c.points.size();
+        for (auto & p : c.points) {
+            sumX += p.values.at(0);
+            sumY += p.values.at(1);
+        }
+        double aveX = sumX / numberOfPoints;
+        double avey = sumY / numberOfPoints;
+
+        ss << endl << "projects in cluster " << c.clusterId << " are: ";
+        if (aveX < 1.0) {
+            ss << "very small";
+        } else if (aveX < 2.0) {
+            ss << "small";
+        } else if (aveX < 3.0) {
+            ss << "average";
+        } else if (aveX < 4.0) {
+            ss << "big";
+        } else {
+            ss << "very big";
+        }
+
+        ss << " size with ";
+
+        if (avey < 0.5) {
+            ss << "very bad";
+        } else if (avey < 1.0) {
+            ss << "bad";
+        } else if (avey < 1.5) {
+            ss << "average";
+        } else if (avey < 2.0) {
+            ss << "good";
+        } else {
+            ss << "very good";
+        }
+
+        ss << " quality";
+
+    }
+
+    ui->text->append(QString::fromStdString(ss.str()));
 }
 
 double MainWindow::clustersWeight(std::vector<Cluster> &clusters)
@@ -238,10 +347,10 @@ void MainWindow::on_btnAnalyze_clicked()
     ui->table->setHorizontalHeaderLabels(QStringList()
                                          << tr("Cluster")
                                          << tr("Repository")
-                                         << tr("ANSIC")
-                                         << tr("Supp")
+                                         << tr("C%")
+                                         << tr("Support")
                                          << tr("Size")
-                                         << tr("Qual")
+                                         << tr("Quality")
                                          << tr("mQuantity")
                                          << tr("mQuality")
                                          );
@@ -292,6 +401,7 @@ void MainWindow::on_btnClusterize_clicked()
         }
     }
     ave = ave / iters;
+    info += "> iterations = " + QString::number(iters) + "\n";
     info += "> best clusterisation MINMAX index = " + QString::number(bestWeight) + " (ave = " + QString::number(ave, 'f', 2) + ")";
     drawClustered();
     showText(info);
@@ -320,4 +430,29 @@ void MainWindow::on_table_itemClicked(QTableWidgetItem *item)
         m_plot.replot();
         wasClicked = true;
     }
+}
+
+void MainWindow::on_rbLines_clicked()
+{
+    drawClustered();
+}
+
+void MainWindow::on_rbDots_clicked()
+{
+    drawClustered();
+}
+
+void MainWindow::on_rbCentroids_clicked()
+{
+    drawClustered();
+}
+
+void MainWindow::on_rbCircles_clicked()
+{
+    drawClustered();
+}
+
+void MainWindow::on_btnReport_clicked()
+{
+
 }

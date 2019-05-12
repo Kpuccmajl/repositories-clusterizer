@@ -64,6 +64,10 @@
           <property name="text">
            <string>Analyze</string>
           </property>
+          <property name="icon">
+           <iconset resource="icons.qrc">
+            <normaloff>:/icons/icons/38.ico</normaloff>:/icons/icons/38.ico</iconset>
+          </property>
          </widget>
         </item>
         <item>
@@ -95,6 +99,10 @@
           <property name="text">
            <string>Clusterize</string>
           </property>
+          <property name="icon">
+           <iconset resource="icons.qrc">
+            <normaloff>:/icons/icons/27.ico</normaloff>:/icons/icons/27.ico</iconset>
+          </property>
          </widget>
         </item>
        </layout>
@@ -102,7 +110,67 @@
      </layout>
     </item>
     <item>
-     <layout class="QVBoxLayout" name="layPlot"/>
+     <layout class="QVBoxLayout" name="layPlot">
+      <item>
+       <layout class="QHBoxLayout" name="horizontalLayout_3">
+        <item>
+         <widget class="QRadioButton" name="rbDots">
+          <property name="text">
+           <string>Dots</string>
+          </property>
+          <property name="checked">
+           <bool>true</bool>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QRadioButton" name="rbLines">
+          <property name="text">
+           <string>Lines</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QRadioButton" name="rbCentroids">
+          <property name="text">
+           <string>Centroids</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QRadioButton" name="rbCircles">
+          <property name="text">
+           <string>Circles</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <spacer name="horizontalSpacer">
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>40</width>
+            <height>20</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+        <item>
+         <widget class="QPushButton" name="btnReport">
+          <property name="text">
+           <string>Report</string>
+          </property>
+          <property name="icon">
+           <iconset resource="icons.qrc">
+            <normaloff>:/icons/icons/12.ico</normaloff>:/icons/icons/12.ico</iconset>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+     </layout>
     </item>
    </layout>
   </widget>

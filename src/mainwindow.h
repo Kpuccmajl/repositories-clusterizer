@@ -20,6 +20,7 @@ public:
     ~MainWindow();
 
 private:
+    void drawPoints();
     void drawClustered();
     void showText(QString & txt);
     void setColorForClusters();
@@ -35,6 +36,13 @@ private slots:
     void on_btnAnalyze_clicked();
     void on_btnClusterize_clicked();
     void on_table_itemClicked(QTableWidgetItem *item);
+
+    void on_rbLines_clicked();
+    void on_rbDots_clicked();
+    void on_rbCentroids_clicked();
+    void on_rbCircles_clicked();
+
+    void on_btnReport_clicked();
 
 private:
     Ui::MainWindow * ui;
