@@ -20,11 +20,25 @@
   <widget class="QWidget" name="centralWidget">
    <layout class="QHBoxLayout" name="horizontalLayout_2" stretch="2,2">
     <item>
-     <layout class="QVBoxLayout" name="lay" stretch="1,1,0">
+     <layout class="QVBoxLayout" name="lay" stretch="0,1,0,1,0">
+      <item>
+       <widget class="QLabel" name="label_3">
+        <property name="text">
+         <string>Clusterization process</string>
+        </property>
+       </widget>
+      </item>
       <item>
        <widget class="QTextEdit" name="text">
         <property name="readOnly">
          <bool>true</bool>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QLabel" name="label">
+        <property name="text">
+         <string>Data</string>
         </property>
        </widget>
       </item>
@@ -44,6 +58,9 @@
         </property>
         <property name="selectionBehavior">
          <enum>QAbstractItemView::SelectRows</enum>
+        </property>
+        <property name="sortingEnabled">
+         <bool>true</bool>
         </property>
        </widget>
       </item>
@@ -111,6 +128,13 @@
     </item>
     <item>
      <layout class="QVBoxLayout" name="layPlot">
+      <item>
+       <widget class="QLabel" name="label_4">
+        <property name="text">
+         <string>Plot</string>
+        </property>
+       </widget>
+      </item>
       <item>
        <layout class="QHBoxLayout" name="horizontalLayout_3">
         <item>

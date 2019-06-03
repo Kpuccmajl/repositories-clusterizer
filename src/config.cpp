@@ -20,6 +20,7 @@ bool Config::readConfig()
     QXmlStreamReader xmlReader;
     xmlReader.setDevice(&file);
     QXmlStreamReader::TokenType token;
+    repositories().clear();
     while (!xmlReader.hasError() && !xmlReader.isEndDocument()) {
         token = xmlReader.readNext();
         if (token == QXmlStreamReader::StartDocument)

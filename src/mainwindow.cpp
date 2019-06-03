@@ -15,12 +15,14 @@ MainWindow::MainWindow(QWidget *parent) :
         exit(0);
     }
 
-    ui->layPlot->insertWidget(0, &m_plot, 1);
+    ui->layPlot->insertWidget(1, &m_plot, 1);
     m_plot.setInteractions(QCP::iRangeDrag | QCP::iRangeZoom);
-    m_plot.xAxis->setLabel("Quantity");
-    m_plot.yAxis->setLabel("Quality");
+    m_plot.xAxis->setLabel("Quantity (lower is better)");
+    m_plot.yAxis->setLabel("Quality (higher is better)");
     m_plot.xAxis->setScaleRatio(m_plot.yAxis);
     m_plot.legend->setVisible(true);
+    m_plot.xAxis->setRange(-0.5, 2);
+    m_plot.yAxis->setRange(-0.5, 2);
 
     Config::instance().readConfig();
 
@@ -33,34 +35,34 @@ MainWindow::MainWindow(QWidget *parent) :
            << QColor(QColor::fromRgb(125,255,125,150))
            << QColor(QColor::fromRgb(255,0,255,150));
 
-    Config::instance().repositories().clear();
-    Config::instance().m_repositories.append(QList<Repository>()
-                                             << Repository("project1",  0.3, 0.2, 0.1, 1.2)
-                                             << Repository("project2",  0.1, 0.8, 0.0, 0.1)
-                                             << Repository("project3",  0.5, 1.3, 0.2, 1.3)
-                                             << Repository("project4",  0.6, 0.4, 0.4, 0.4)
-                                             << Repository("project5",  1.9, 0.3, 1.5, 0.6)
-                                             << Repository("project6",  1.4, 0.2, 0.8, 1.5)
-                                             << Repository("project7",  0.3, 1.2, 0.9, 0.4)
-                                             << Repository("project8",  1.2, 0.1, 1.9, 0.3)
-                                             << Repository("project10", 0.3, 0.3, 2.2, 1.3)
-                                             << Repository("project11", 0.7, 1.4, 2.1, 0.2)
-                                             << Repository("project12", 0.2, 0.6, 1.3, 0.3)
-                                             << Repository("project13", 0.2, 0.5, 0.5, 0.0)
-                                             << Repository("project14", 1.3, 1.5, 0.4, 0.9)
-                                             << Repository("project15", 0.4, 0.1, 0.2, 1.1)
-                                             << Repository("project15", 0.1, 0.2, 1.3, 0.3)
-                                             << Repository("project16", 0.8, 0.4, 0.5, 0.3)
-                                             << Repository("project17", 1.8, 1.4, 0.6, 0.3)
-                                             << Repository("project18", 0.8, 2.3, 0.7, 0.2)
-                                             << Repository("project19", 0.2, 0.8, 1.8, 1.7)
-                                             << Repository("project20", 0.3, 1.5, 0.0, 0.7)
-                                             << Repository("project21", 1.6, 0.5, 0.1, 0.7)
-                                             << Repository("project22", 0.7, 0.4, 1.2, 0.6)
-                                             << Repository("project23", 0.0, 1.2, 2.4, 0.4)
-                                             << Repository("project24", 0.1, 0.1, 0.5, 1.2)
-                                             << Repository("project25", 1.2, 0.1, 0.6, 1.1)
-                                             );
+//    Config::instance().repositories().clear();
+//    Config::instance().m_repositories.append(QList<Repository>()
+//                                             << Repository("repository1",  0.3, 0.2, 0.1, 1.2)
+//                                             << Repository("repository2",  0.1, 0.8, 0.0, 0.1)
+//                                             << Repository("repository3",  0.5, 1.3, 0.2, 1.3)
+//                                             << Repository("repository4",  0.6, 0.4, 0.4, 0.4)
+//                                             << Repository("repository5",  1.9, 0.3, 1.5, 0.6)
+//                                             << Repository("repository6",  1.4, 0.2, 0.8, 1.5)
+//                                             << Repository("repository7",  0.3, 1.2, 0.9, 0.4)
+//                                             << Repository("repository8",  1.2, 0.1, 1.9, 0.3)
+//                                             << Repository("repository10", 0.3, 0.3, 2.2, 1.3)
+//                                             << Repository("repository11", 0.7, 1.4, 2.1, 0.2)
+//                                             << Repository("repository12", 0.2, 0.6, 1.3, 0.3)
+//                                             << Repository("repository13", 0.2, 0.5, 0.5, 0.0)
+//                                             << Repository("repository14", 1.3, 1.5, 0.4, 0.9)
+//                                             << Repository("repository15", 0.4, 0.1, 0.2, 1.1)
+//                                             << Repository("repository15", 0.1, 0.2, 1.3, 0.3)
+//                                             << Repository("repository16", 0.8, 0.4, 0.5, 0.3)
+//                                             << Repository("repository17", 1.8, 1.4, 0.6, 0.3)
+//                                             << Repository("repository18", 0.8, 2.3, 0.7, 0.2)
+//                                             << Repository("repository19", 0.2, 0.8, 1.8, 1.7)
+//                                             << Repository("repository20", 0.3, 1.5, 0.0, 0.7)
+//                                             << Repository("repository21", 1.6, 0.5, 0.1, 0.7)
+//                                             << Repository("repository22", 0.7, 0.4, 1.2, 0.6)
+//                                             << Repository("repository23", 0.0, 1.2, 2.4, 0.4)
+//                                             << Repository("repository24", 0.1, 0.1, 0.5, 1.2)
+//                                             << Repository("repository25", 1.2, 0.1, 0.6, 1.1)
+//                                             );
 }
 
 MainWindow::~MainWindow()
@@ -72,10 +74,6 @@ void MainWindow::drawClustered()
 {
     m_plot.clearGraphs();
     wasClicked = false;
-    int xMin = INT32_MAX;
-    int xMax = INT32_MIN;
-    int yMin = INT32_MAX;
-    int yMax = INT32_MIN;
     int color = 0;
 
     for (auto & r: Config::instance().repositories()) {
@@ -85,10 +83,6 @@ void MainWindow::drawClustered()
         auto y = r.y();
         xv.append(x);
         yv.append(y);
-        if (x < xMin) xMin = x;
-        if (x > xMax) xMax = x;
-        if (y < yMin) yMin = y;
-        if (y > yMax) yMax = y;
         QPen pen = QPen(Qt::lightGray);
         pen.setWidth(8);
         m_plot.graph()->setPen(pen);
@@ -176,9 +170,6 @@ void MainWindow::drawClustered()
         ++color;
     }
 
-    double scale = 1.0;
-    m_plot.xAxis->setRange(xMin - scale, xMax + scale);
-    m_plot.yAxis->setRange(yMin, yMax + scale);
     m_plot.replot();
 }
 
@@ -213,7 +204,7 @@ void MainWindow::setColorForClusters()
                                               + std::pow(cc.centroid.at(1) - p.values.at(1), 2)));
                 }
                 float perc = Analyzer::normalFloat(100.0 - (distToCluster / distSum) * 100.0);
-                item->setText(QString::number(perc) + "%");
+                item->setText(QString::number(clus) + "  (" + QString::number(perc) + "%)");
             }
         }
         ++clus;
@@ -223,6 +214,7 @@ void MainWindow::setColorForClusters()
 void MainWindow::lingua()
 {
     std::stringstream ss;
+    ss << "> recommended clusters count " << sqrt(Config::instance().repositories().count() / 2)  << " +/- 1" <<  endl << endl;
     ss << "> linguistic analyze " << endl;
     auto all = Config::instance().repositories().count();
 
@@ -260,32 +252,22 @@ void MainWindow::lingua()
         double avey = sumY / numberOfPoints;
 
         ss << endl << "projects in cluster " << c.clusterId << " are: ";
-        if (aveX < 1.0) {
-            ss << "very small";
-        } else if (aveX < 2.0) {
-            ss << "small";
-        } else if (aveX < 3.0) {
-            ss << "average";
-        } else if (aveX < 4.0) {
-            ss << "big";
-        } else {
-            ss << "very big";
-        }
-
+        if (aveX < 0.10)      ss << "tiny";
+        else if (aveX < 0.25) ss << "very small";
+        else if (aveX < 0.5)  ss << "small";
+        else if (aveX < 1.0)  ss << "average";
+        else if (aveX < 1.5)  ss << "big";
+        else if (aveX < 2.0)  ss << "very big";
+        else                  ss << "enormous";
         ss << " size with ";
 
-        if (avey < 0.5) {
-            ss << "very bad";
-        } else if (avey < 1.0) {
-            ss << "bad";
-        } else if (avey < 1.5) {
-            ss << "average";
-        } else if (avey < 2.0) {
-            ss << "good";
-        } else {
-            ss << "very good";
-        }
-
+        if (avey < 0.10)      ss << "worst";
+        else if (avey < 0.25) ss << "very bad";
+        else if (avey < 0.5)  ss << "bad";
+        else if (avey < 1.0)  ss << "average";
+        else if (avey < 1.3)  ss << "good";
+        else if (avey < 2.0)  ss << "very good";
+        else                  ss << "perfect";
         ss << " quality";
 
     }
@@ -322,24 +304,8 @@ double MainWindow::range(float x1, float x2, float y1, float y2)
     return std::sqrt(fabs(std::pow(x2 - x1, 2) + std::pow(y2 - y1, 2)));
 }
 
-void MainWindow::on_btnAnalyze_clicked()
+void MainWindow::fillTable()
 {
-    ui->text->clear();
-    ui->btnAnalyze->setEnabled(false);
-    ui->btnClusterize->setEnabled(false);
-
-    //    int counter = 0;
-    //    ui->progressBar->setMaximum(Config::instance().repositories().count());
-    //    ui->progressBar->setValue(0);
-    //    for (auto & r: Config::instance().repositories()) {
-    //        ui->progressBar->setFormat("Analyzing: " + r.link());
-    //        update();
-    //        Analyzer::analyze(r);
-    //        ui->progressBar->setValue(++counter);
-    //    }
-    //    ui->progressBar->setFormat("");
-
-    //add to table
     ui->table->clear();
     ui->table->clearContents();
     ui->table->setRowCount(Config::instance().repositories().count());
@@ -354,6 +320,7 @@ void MainWindow::on_btnAnalyze_clicked()
                                          << tr("mQuantity")
                                          << tr("mQuality")
                                          );
+    ui->table->setColumnWidth(0, 80);
     ui->table->setColumnWidth(1, 100);
     int row = 0;
     for (auto & r: Config::instance().repositories()) {
@@ -367,7 +334,28 @@ void MainWindow::on_btnAnalyze_clicked()
         ui->table->setItem(row, 7, new QTableWidgetItem(QString::number(r.y())));
         ++row;
     }
-    ui->table->scrollToBottom();
+}
+
+void MainWindow::on_btnAnalyze_clicked()
+{
+    ui->text->clear();
+    ui->btnAnalyze->setEnabled(false);
+    ui->btnClusterize->setEnabled(false);
+
+    int counter = 0;
+    ui->progressBar->setMaximum(Config::instance().repositories().count());
+    ui->progressBar->setValue(0);
+    for (auto & r: Config::instance().repositories()) {
+        ui->progressBar->setFormat("Analyzing: " + r.link());
+        update();
+        Analyzer::analyze(r);
+        ui->progressBar->setValue(++counter);
+    }
+    ui->progressBar->setFormat("");
+
+    //add to table
+    ui->table->setSortingEnabled(false);
+    fillTable();
     ui->btnAnalyze->setEnabled(true);
     ui->btnClusterize->setEnabled(true);
 }
@@ -408,6 +396,19 @@ void MainWindow::on_btnClusterize_clicked()
     setColorForClusters();
     lingua();
     ui->btnClusterize->setEnabled(true);
+
+    //    int xMin = -3;
+    //    int xMax = 3;
+    //    int yMin = -3;
+    //    int yMax = 3;
+    //    for (auto & r: Config::instance().repositories()) {
+    //        if (r.x() < xMin) xMin = r.x();
+    //        if (r.x() > xMax) xMax = r.x();
+    //        if (r.y() < yMin) yMin = r.y();
+    //        if (r.y() > yMax) yMax = r.y();
+    //    }
+    //    double scale = 1.5;
+
 }
 
 void MainWindow::on_table_itemClicked(QTableWidgetItem *item)
@@ -454,5 +455,48 @@ void MainWindow::on_rbCircles_clicked()
 
 void MainWindow::on_btnReport_clicked()
 {
+    QString text;
+    text.append("<b>Clusterisation report of " + QDateTime::currentDateTime().toString("dd.MM.yy hh:mm:ss") + "</b><br>");
+
+    QPrinter printer(QPrinter::ScreenResolution);
+    printer.setOutputFormat(QPrinter::PdfFormat);
+    printer.setPaperSize(QPrinter::A4);
+    printer.setOrientation(QPrinter::Portrait);
+    printer.setOutputFileName("report.pdf");
+
+    QTextDocument doc;
+
+    text.append("<table border=\"1\" cellpadding=\"3\" cellspacing=\"-1\" width=\"100%\"><thead>");
+    text.append("<tr>");
+    for (int i = 0; i < ui->table->columnCount(); i++) {
+        text.append("<th>").append(ui->table->horizontalHeaderItem(i)->data(Qt::DisplayRole).toString()).append("</th>");
+    }
+    text.append("</tr></thead>");
+    text.append("<tbody>");
+    for (int i = 0; i < ui->table->rowCount(); i++) {
+        text.append("<tr>");
+        for (int j = 0; j < ui->table->columnCount(); j++) {
+            text.append("<td align=\"center\">").append(ui->table->item(i, j)->text()).append("</td>");
+        }
+        text.append("</tr>");
+    }
+    text.append("</tbody></table><br>");
+
+    text.append(ui->text->toHtml() + "<br>");
+
+    doc.setHtml(text);
+
+    QTextCursor cursor(&doc);
+    auto p = m_plot.toPixmap().scaled(printer.paperRect().width(), printer.paperRect().height(),Qt::AspectRatioMode::KeepAspectRatio);
+    cursor.movePosition(QTextCursor::End);
+    cursor.insertImage(p.toImage());
+
+    doc.setPageSize(printer.pageRect().size());
+    doc.print(&printer);
+
+    QMessageBox::information(this,
+                             tr("100%"),
+                             tr("Report is done"),
+                             QMessageBox::Ok);
 
 }

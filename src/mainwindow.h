@@ -27,6 +27,7 @@ private:
     void lingua();
     double clustersWeight(std::vector<Cluster> & clusters);
     double range(float x1, float x2, float y1, float y2);
+    void fillTable();
 
     QList<QColor>        colors;
     bool                 wasClicked = false;

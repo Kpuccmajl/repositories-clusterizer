@@ -10,6 +10,7 @@
 *.dylib
 
 build
+repos
 
 # Qt-es
 object_script.*.Release

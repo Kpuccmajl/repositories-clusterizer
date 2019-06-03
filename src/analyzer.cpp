@@ -46,7 +46,7 @@ bool Analyzer::sloc(Repository &repository)
     }
     repository.setSloc(sloc.toUInt());
 
-    int lowgrade = 5000;
+    int lowgrade = 1000;
     int highgrade = 50000;
     if (repository.sloc() < lowgrade) {
         repository.setSize(0.0);
@@ -73,11 +73,11 @@ bool Analyzer::cppcheck(Repository &repository)
     int lowgrade = 0;
     int highgrade = 200;
     if (errcount <= lowgrade) {
-        repository.setQuality(0.0);
-    } else if (errcount > highgrade) {
         repository.setQuality(1.0);
+    } else if (errcount > highgrade) {
+        repository.setQuality(0.0);
     } else {
-        repository.setQuality(normalFloat(static_cast<float>(errcount) / highgrade));
+        repository.setQuality(normalFloat(1 - static_cast<float>(errcount) / highgrade));
     }
 
     return true;
@@ -102,11 +102,11 @@ bool Analyzer::checkSupport(Repository &repository)
     float lowgrade = 86400 * 1;
     float highgrade = 86400 * 90;
     if (current - lastUpdate < lowgrade) {
-        repository.setSupport(0.0);
-    } else if (current - lastUpdate > highgrade) {
         repository.setSupport(1.0);
+    } else if (current - lastUpdate > highgrade) {
+        repository.setSupport(0.0);
     } else {
-        repository.setSupport(normalFloat(float(current - lastUpdate) / highgrade));
+        repository.setSupport(1 - normalFloat(float(current - lastUpdate) / highgrade));
     }
 
     return true;
