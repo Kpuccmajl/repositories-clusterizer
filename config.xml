@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <config>
-
 <repository link="../repos/modules/3m48                  "/>
 <repository link="../repos/modules/3m871f                "/>
 <repository link="../repos/modules/3r14n                 "/>
@@ -69,5 +68,4 @@
 <repository link="../repos/modules/sys-graphics          "/>
 <repository link="../repos/modules/trajectorycalculate   "/>
 <repository link="../repos/modules/v7m                   "/>
-
 </config>

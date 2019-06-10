@@ -35,34 +35,34 @@ MainWindow::MainWindow(QWidget *parent) :
            << QColor(QColor::fromRgb(125,255,125,150))
            << QColor(QColor::fromRgb(255,0,255,150));
 
-//    Config::instance().repositories().clear();
-//    Config::instance().m_repositories.append(QList<Repository>()
-//                                             << Repository("repository1",  0.3, 0.2, 0.1, 1.2)
-//                                             << Repository("repository2",  0.1, 0.8, 0.0, 0.1)
-//                                             << Repository("repository3",  0.5, 1.3, 0.2, 1.3)
-//                                             << Repository("repository4",  0.6, 0.4, 0.4, 0.4)
-//                                             << Repository("repository5",  1.9, 0.3, 1.5, 0.6)
-//                                             << Repository("repository6",  1.4, 0.2, 0.8, 1.5)
-//                                             << Repository("repository7",  0.3, 1.2, 0.9, 0.4)
-//                                             << Repository("repository8",  1.2, 0.1, 1.9, 0.3)
-//                                             << Repository("repository10", 0.3, 0.3, 2.2, 1.3)
-//                                             << Repository("repository11", 0.7, 1.4, 2.1, 0.2)
-//                                             << Repository("repository12", 0.2, 0.6, 1.3, 0.3)
-//                                             << Repository("repository13", 0.2, 0.5, 0.5, 0.0)
-//                                             << Repository("repository14", 1.3, 1.5, 0.4, 0.9)
-//                                             << Repository("repository15", 0.4, 0.1, 0.2, 1.1)
-//                                             << Repository("repository15", 0.1, 0.2, 1.3, 0.3)
-//                                             << Repository("repository16", 0.8, 0.4, 0.5, 0.3)
-//                                             << Repository("repository17", 1.8, 1.4, 0.6, 0.3)
-//                                             << Repository("repository18", 0.8, 2.3, 0.7, 0.2)
-//                                             << Repository("repository19", 0.2, 0.8, 1.8, 1.7)
-//                                             << Repository("repository20", 0.3, 1.5, 0.0, 0.7)
-//                                             << Repository("repository21", 1.6, 0.5, 0.1, 0.7)
-//                                             << Repository("repository22", 0.7, 0.4, 1.2, 0.6)
-//                                             << Repository("repository23", 0.0, 1.2, 2.4, 0.4)
-//                                             << Repository("repository24", 0.1, 0.1, 0.5, 1.2)
-//                                             << Repository("repository25", 1.2, 0.1, 0.6, 1.1)
-//                                             );
+    Config::instance().repositories().clear();
+    Config::instance().m_repositories.append(QList<Repository>()
+                                             << Repository("repository1",  0.3, 0.2, 0.1, 0.2)
+                                             << Repository("repository2",  0.1, 0.8, 0.0, 0.1)
+                                             << Repository("repository3",  0.5, 0.3, 0.2, 0.3)
+                                             << Repository("repository4",  0.6, 0.4, 0.4, 0.4)
+                                             << Repository("repository5",  0.9, 0.3, 0.5, 0.6)
+                                             << Repository("repository6",  0.4, 0.2, 0.8, 0.5)
+                                             << Repository("repository7",  0.3, 0.2, 0.9, 0.4)
+                                             << Repository("repository8",  0.2, 0.1, 0.9, 0.3)
+                                             << Repository("repository10", 0.3, 0.3, 0.2, 0.3)
+                                             << Repository("repository11", 0.7, 0.4, 0.1, 0.2)
+                                             << Repository("repository12", 0.2, 0.6, 0.3, 0.3)
+                                             << Repository("repository13", 0.2, 0.5, 0.5, 0.0)
+                                             << Repository("repository14", 0.3, 0.5, 0.4, 0.9)
+                                             << Repository("repository15", 0.4, 0.1, 0.2, 0.1)
+                                             << Repository("repository15", 0.1, 0.2, 0.3, 0.3)
+                                             << Repository("repository16", 0.8, 0.4, 0.5, 0.3)
+                                             << Repository("repository17", 0.8, 0.4, 0.6, 0.3)
+                                             << Repository("repository18", 0.8, 0.3, 0.7, 0.2)
+                                             << Repository("repository19", 0.2, 0.8, 0.8, 0.7)
+                                             << Repository("repository20", 0.3, 0.5, 0.0, 0.7)
+                                             << Repository("repository21", 0.6, 0.5, 0.1, 0.7)
+                                             << Repository("repository22", 0.7, 0.4, 0.2, 0.6)
+                                             << Repository("repository23", 0.0, 0.2, 0.4, 0.4)
+                                             << Repository("repository24", 0.1, 0.1, 0.5, 0.2)
+                                             << Repository("repository25", 0.2, 0.1, 0.6, 0.1)
+                                             );
 }
 
 MainWindow::~MainWindow()
@@ -342,16 +342,16 @@ void MainWindow::on_btnAnalyze_clicked()
     ui->btnAnalyze->setEnabled(false);
     ui->btnClusterize->setEnabled(false);
 
-    int counter = 0;
-    ui->progressBar->setMaximum(Config::instance().repositories().count());
-    ui->progressBar->setValue(0);
-    for (auto & r: Config::instance().repositories()) {
-        ui->progressBar->setFormat("Analyzing: " + r.link());
-        update();
-        Analyzer::analyze(r);
-        ui->progressBar->setValue(++counter);
-    }
-    ui->progressBar->setFormat("");
+//    int counter = 0;
+//    ui->progressBar->setMaximum(Config::instance().repositories().count());
+//    ui->progressBar->setValue(0);
+//    for (auto & r: Config::instance().repositories()) {
+//        ui->progressBar->setFormat("Analyzing: " + r.link());
+//        update();
+//        Analyzer::analyze(r);
+//        ui->progressBar->setValue(++counter);
+//    }
+//    ui->progressBar->setFormat("");
 
     //add to table
     ui->table->setSortingEnabled(false);
@@ -377,10 +377,11 @@ void MainWindow::on_btnClusterize_clicked()
     srand(time(NULL));
     double ave = 0.0;
     KMeans k(ui->sbClustersCount->value(), 100);
-    int iters = 1000;
+    int iters = 5000;
     for (int i = 0; i < iters; i++) {
         k.clusterize(points);
         auto w = clustersWeight(k.clusters);
+        qDebug() << w;
         ave += w;
         if (bestWeight > w) {
             bestWeight = w;
@@ -396,19 +397,6 @@ void MainWindow::on_btnClusterize_clicked()
     setColorForClusters();
     lingua();
     ui->btnClusterize->setEnabled(true);
-
-    //    int xMin = -3;
-    //    int xMax = 3;
-    //    int yMin = -3;
-    //    int yMax = 3;
-    //    for (auto & r: Config::instance().repositories()) {
-    //        if (r.x() < xMin) xMin = r.x();
-    //        if (r.x() > xMax) xMax = r.x();
-    //        if (r.y() < yMin) yMin = r.y();
-    //        if (r.y() > yMax) yMax = r.y();
-    //    }
-    //    double scale = 1.5;
-
 }
 
 void MainWindow::on_table_itemClicked(QTableWidgetItem *item)
